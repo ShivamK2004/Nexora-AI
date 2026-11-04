@@ -12,6 +12,7 @@ from backend.app.config import get_settings
 from backend.app.db import connect
 from backend.app.services.knowledge import retrieve, extract_text
 from backend.app.services.llm import LLMError, LLMService
+from backend.app.services.models import supported_model
 from backend.app.services.memory import retrieve_memories
 
 router = APIRouter(prefix="/api", tags=["chat"])
@@ -132,18 +133,35 @@ async def chat(request: Request):
             form = await request.form()
             message = str(form.get("message", ""))
             conversation_id = str(form.get("conversation_id") or "").strip() or None
+            selected_provider = str(form.get("provider") or "").strip().lower() or None
+            selected_model = str(form.get("model") or "").strip() or None
             files = form.getlist("files")
             metadata, stored_message, current_images = await _save_attachments(files, message)
         else:
             payload = await request.json()
             message = str(payload.get("message") or "").strip()
             conversation_id = payload.get("conversation_id") or None
+            selected_provider = str(payload.get("provider") or "").strip().lower() or None
+            selected_model = str(payload.get("model") or "").strip() or None
             metadata, stored_message, current_images = await _save_attachments([], message)
     except (ValueError, TypeError, json.JSONDecodeError) as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     if len(message) > 12000:
         raise HTTPException(status_code=400, detail="Message must be 12,000 characters or fewer.")
+    settings = get_settings()
+    if selected_provider:
+        if selected_provider not in {"mock", "gemini", "anthropic", "ollama"}:
+            raise HTTPException(status_code=400, detail="Unknown AI provider selected.")
+        if not selected_model:
+            selected_model = {
+                "mock": "mock",
+                "gemini": settings.gemini_model,
+                "anthropic": settings.anthropic_model,
+                "ollama": settings.ollama_model,
+            }[selected_provider]
+        if not supported_model(selected_provider, selected_model, settings):
+            raise HTTPException(status_code=400, detail="The selected model is not available for this provider.")
     conversation_id = conversation_id or str(uuid4())
     with connect() as conn:
         exists = conn.execute("SELECT id FROM conversations WHERE id=?", (conversation_id,)).fetchone()
@@ -216,7 +234,7 @@ async def chat(request: Request):
 
     service = LLMService()
     try:
-        answer = await service.chat(history, system=system)
+        answer = await service.chat(history, system=system, provider_override=selected_provider, model_override=selected_model)
     except LLMError as exc:
         upload_dir = get_settings().data_dir / "uploads"
         for item in metadata:
@@ -248,8 +266,8 @@ async def chat(request: Request):
     return {
         "conversation_id": conversation_id,
         "answer": answer,
-        "provider": service.provider,
-        "model": _active_model(service),
+        "provider": service.last_provider,
+        "model": service.last_model,
         "citations": citations,
         "attachments": [_public_attachment(item) for item in metadata],
     }

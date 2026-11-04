@@ -7,36 +7,30 @@
 3. The script creates `.venv`, installs requirements, creates `.env` from `.env.example` when needed, and starts the server.
 4. Open `http://127.0.0.1:8000`.
 
-Edit `.env` before launching to select a provider. Only one provider is active per server process.
+Set `.env` to choose the default provider for browsers that have no saved selection. Each browser can then choose its own provider and model from the chat header.
 
-## Select Gemini
+## Choose an AI provider and model
 
-Set `LLM_PROVIDER=gemini`, put a valid Google AI Studio key in `GEMINI_API_KEY`, and set `GEMINI_MODEL=gemini-3.8-flash` (or another model available to your key). Restart the server after editing `.env`.
+The chat header has two selectors. First choose a provider, then choose one of its models. Nexora saves this preference in the browser and sends it with each new message.
 
-Gemini requests go directly from the Nexora backend to Google's Generative Language API. The key stays in the backend environment and is never sent to browser JavaScript.
+- **Google Gemini:** add `GEMINI_API_KEY` to `.env` locally or Render → Environment.
+- **Anthropic Claude:** add `ANTHROPIC_API_KEY` to `.env` locally or Render → Environment.
+- **Ollama:** install and start Ollama. The Ollama base URL must be reachable from the machine/container running Nexora. `localhost` on Render is the Render container, not your Windows computer.
+- **Mock:** UI testing only; no real model is called.
 
-## Select Ollama
-
-Install and start Ollama, pull a local model, and set `LLM_PROVIDER=ollama`. Example for text chat:
+For local Ollama text chat:
 
 ```powershell
 ollama pull llama3:latest
 ```
 
-Then set:
-
-```dotenv
-OLLAMA_BASE_URL=http://localhost:11434
-OLLAMA_MODEL=llama3:latest
-```
-
-For image understanding, use an Ollama vision model instead of a text-only model. For example:
+For local Ollama vision chat, use a vision-capable model:
 
 ```powershell
 ollama pull llama3.2-vision
 ```
 
-Then set `OLLAMA_MODEL=llama3.2-vision`. Image support depends on the model; the ordinary `llama3:latest` model is not a vision model.
+Gemini and Claude model IDs shown in the dropdown come from the model catalog in `backend/app/services/models.py`. Access to individual models depends on the provider account. Google currently restricts Gemini 2.5 access for new projects; select a current generally available Gemini 3 Flash model if `gemini-2.5-flash` is unavailable to your key.
 
 ## Chat and history
 
@@ -63,6 +57,6 @@ Chat history, document indexes, and uploaded chat attachments are stored locally
 Never paste a real API key into source code or commit it to Git. Keep it in `.env`; `.gitignore` excludes that file.
 
 
-### Change the active AI provider
+### API key privacy
 
-Use the **AI PROVIDER** dropdown in the header. The selection is written to `.env` and applies immediately: `Mock` does not call a model, `Google Gemini` uses `GEMINI_API_KEY`, and `Ollama local` calls the local Ollama server. If Gemini is selected without a key, add `GEMINI_API_KEY` to `.env`. PDF text is extracted locally and sent to the selected provider; image-only scanned PDFs are not OCR'd by this starter.
+Provider API keys are read only by the backend. Never place them in browser JavaScript or commit them to Git. On Render, set them in the service's Environment page. If a key is exposed in a screenshot, chat, or public repository, revoke it and create a replacement.

@@ -1,15 +1,15 @@
 {
   "project": "Nexora AI",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "generated_on": "2026-11-04",
-  "file_count": 74,
-  "status": "Local chat workspace with Gemini/Ollama test providers, persisted chat history and file/image attachments; no pretrained large NexoraLM included.",
+  "file_count": 100,
+  "status": "Multi-model chat workspace with Gemini, Anthropic Claude, Ollama and Mock provider adapters; persistent chat history and file/image attachments; no pretrained NexoraLM foundation model included.",
   "manifest_note": "This manifest lists hashes for every packaged file except itself.",
   "files": [
     {
       "path": ".env.example",
-      "size_bytes": 959,
-      "sha256": "36c5e247407858d234b232855a67db9895e79ec6032fcb0230e6211bfebae85d"
+      "size_bytes": 1097,
+      "sha256": "e0a371ee6feb3a2dd15efe6a92af0546376c051ae199b7d34639831d0fa7a396"
     },
     {
       "path": ".github/workflows/ci.yml",
@@ -38,8 +38,8 @@
     },
     {
       "path": "README.md",
-      "size_bytes": 5843,
-      "sha256": "ea04da21bc1b12bea434987c1e5a34319522dd560920ef021b0b1e5dd19084d8"
+      "size_bytes": 5674,
+      "sha256": "8396c4949570470947b6919d4c6bffdd0be5a8a4ed30c5032c51771f5c157787"
     },
     {
       "path": "architecture/chat_sequence.mmd",
@@ -62,14 +62,44 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
+      "path": "backend/__pycache__/__init__.cpython-313.pyc",
+      "size_bytes": 157,
+      "sha256": "df745c90371ed206fafaca990c4bf22545b361a90a752555f227344bb6485392"
+    },
+    {
       "path": "backend/app/__init__.py",
       "size_bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
+      "path": "backend/app/__pycache__/__init__.cpython-313.pyc",
+      "size_bytes": 161,
+      "sha256": "ef469b5613e31cb1c989d9df0ea61b0b7b353cdc076a8abb4e65793a0ec040dd"
+    },
+    {
+      "path": "backend/app/__pycache__/config.cpython-313.pyc",
+      "size_bytes": 4974,
+      "sha256": "01ece3916ac1f906e2655043c17368e50de1c0754bf8650ef15121a4490a223e"
+    },
+    {
+      "path": "backend/app/__pycache__/db.cpython-313.pyc",
+      "size_bytes": 4048,
+      "sha256": "9392b5c507357b8a75c600650eeb51857a47d4c016c856729f393e2cf973045a"
+    },
+    {
+      "path": "backend/app/__pycache__/main.cpython-313.pyc",
+      "size_bytes": 8698,
+      "sha256": "4eefbf33fb05e1978859c592188b2272244f6004e33154de5029c00c52d7c026"
+    },
+    {
+      "path": "backend/app/__pycache__/schemas.cpython-313.pyc",
+      "size_bytes": 1633,
+      "sha256": "ce2a1aab4bf3c01f158dc93083fe5a9bf2153fb25555d724f969be85ae29e1b8"
+    },
+    {
       "path": "backend/app/config.py",
-      "size_bytes": 3390,
-      "sha256": "bf8ef5abe1ba7405ac147c110d447b28362784028997ea44777d9b0a25278df8"
+      "size_bytes": 3639,
+      "sha256": "f3bec52daf076835d93c2a63c97613b6c29cdec23fd187a1cb1e3cd0adc9b912"
     },
     {
       "path": "backend/app/db.py",
@@ -78,13 +108,43 @@
     },
     {
       "path": "backend/app/main.py",
-      "size_bytes": 2203,
-      "sha256": "fa3a6bdbea79c20a0294c99cbb74c9795aafc06b49a11956b5baebb7358a81f5"
+      "size_bytes": 5634,
+      "sha256": "9d50884f70fde82476b24a3490ea95b8e2731e56c07b6e88bfd79f1ff003ab34"
     },
     {
       "path": "backend/app/routers/__init__.py",
       "size_bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/app/routers/__pycache__/__init__.cpython-313.pyc",
+      "size_bytes": 169,
+      "sha256": "ae729912f87fe1206db0cf0c99050d0528e64cf82202466d4a6beb46c95b4428"
+    },
+    {
+      "path": "backend/app/routers/__pycache__/agents.cpython-313.pyc",
+      "size_bytes": 1416,
+      "sha256": "f0614f107ab6165baf5d183ea98229e1f4e355e7b5c38b2c8f26a3811501ee56"
+    },
+    {
+      "path": "backend/app/routers/__pycache__/chat.cpython-313.pyc",
+      "size_bytes": 22109,
+      "sha256": "b4199440ed85eace6cb2aaf93570a5f01266060fac042d782a178040b5de3376"
+    },
+    {
+      "path": "backend/app/routers/__pycache__/documents.cpython-313.pyc",
+      "size_bytes": 1751,
+      "sha256": "b94293ddadb06f1a65dbd911052627bcdf5cc2c0991cfcc2141a78ba64c979bb"
+    },
+    {
+      "path": "backend/app/routers/__pycache__/memory.cpython-313.pyc",
+      "size_bytes": 1382,
+      "sha256": "621bcf477ab031456277fad692b52d7b56977394b1af0897e3ebfdf653a2b88e"
+    },
+    {
+      "path": "backend/app/routers/__pycache__/tools.cpython-313.pyc",
+      "size_bytes": 1620,
+      "sha256": "2f411e5787ddd6e62cb7b9b88dd7388466863079789b21de4c0c22355e9e7021"
     },
     {
       "path": "backend/app/routers/agents.py",
@@ -93,8 +153,8 @@
     },
     {
       "path": "backend/app/routers/chat.py",
-      "size_bytes": 14428,
-      "sha256": "459f1771129eb191ee89289d3f01cd1218e5d1b87d4236bf906595510a749a06"
+      "size_bytes": 15578,
+      "sha256": "c10c368ca7f50b6e7ee519b93672a29bc5e863ad3bd7fe8413024ba7cf97c0d4"
     },
     {
       "path": "backend/app/routers/documents.py",
@@ -122,6 +182,41 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
+      "path": "backend/app/services/__pycache__/__init__.cpython-313.pyc",
+      "size_bytes": 170,
+      "sha256": "a6db7f2e715cfdb95ac81a25c0804ab6a54fadd0591173fedfc2f01b6120eaa6"
+    },
+    {
+      "path": "backend/app/services/__pycache__/agents.cpython-313.pyc",
+      "size_bytes": 4062,
+      "sha256": "e463226d72fada867b16a0921a88e713ef9cc08f08c8b8c881dc7e5621b60c61"
+    },
+    {
+      "path": "backend/app/services/__pycache__/knowledge.cpython-313.pyc",
+      "size_bytes": 9342,
+      "sha256": "17a6fe6887aa620ebc8fce903677a8b6e6e10cdd4c2cd7a9103c59d7dd8d35da"
+    },
+    {
+      "path": "backend/app/services/__pycache__/llm.cpython-313.pyc",
+      "size_bytes": 13900,
+      "sha256": "542d8121082e04fad9a4e3b1a7a147a942e7814c25c5a3afdcbfe83b70bad719"
+    },
+    {
+      "path": "backend/app/services/__pycache__/memory.cpython-313.pyc",
+      "size_bytes": 3227,
+      "sha256": "d677c0e2699306458d0dbe5ffc4f49f0eb5ec0f41d2026e04a6915afe908cdbb"
+    },
+    {
+      "path": "backend/app/services/__pycache__/models.cpython-313.pyc",
+      "size_bytes": 2856,
+      "sha256": "de0487583cf18c39ddeaccba38b9c9fcef8ce1841df1d63605481ba49e04da19"
+    },
+    {
+      "path": "backend/app/services/__pycache__/tools.cpython-313.pyc",
+      "size_bytes": 3563,
+      "sha256": "a3320487afe40d18fea12d77134c11e710463138812b60d70a40a523908ccae2"
+    },
+    {
       "path": "backend/app/services/agents.py",
       "size_bytes": 2362,
       "sha256": "cd0e961c6b6b5db13fbe7dcd68cf6da7d2314b638030efa4416a5e1fb57dc53a"
@@ -133,13 +228,18 @@
     },
     {
       "path": "backend/app/services/llm.py",
-      "size_bytes": 5705,
-      "sha256": "fd16cae291e91285394b68362d524d63f6d0c402d0f50f2c81e3e52b4ffe813d"
+      "size_bytes": 9935,
+      "sha256": "9631f812378d3f96da95049e41bc411bd3bec7ed9dc3b6929a932b5e03b903f2"
     },
     {
       "path": "backend/app/services/memory.py",
       "size_bytes": 1358,
       "sha256": "df5cebf3a43f3a231363726304fb122fd5ed2f38f504d130061516bfc23ff254"
+    },
+    {
+      "path": "backend/app/services/models.py",
+      "size_bytes": 2011,
+      "sha256": "bf35b935503c2b501097ed8ec5283774c5849987b6cc33bb7ec74e8755d8ac5d"
     },
     {
       "path": "backend/app/services/tools.py",
@@ -193,8 +293,8 @@
     },
     {
       "path": "docs/DEPLOYMENT.md",
-      "size_bytes": 1141,
-      "sha256": "113e13ed7cdffc3b4e692672800b8f6234a09da500c6f6168a1476cdbcffbd67"
+      "size_bytes": 1735,
+      "sha256": "049d5d9bd9abc5acd8620c2f1c7c22122a614a09e272d7e22d78ac0f41fd1571"
     },
     {
       "path": "docs/DEVELOPER_GUIDE.md",
@@ -219,7 +319,12 @@
     {
       "path": "docs/PROJECT_REPORT.md",
       "size_bytes": 8944,
-      "sha256": "0df8629c72b1e8025eba86c175dfaa744eb25dd8688809bc617d94e466d3145e"
+      "sha256": "c1c19ad577eda0f654910b2164a10b780f0db9671bbdcb694f79214d032a20b2"
+    },
+    {
+      "path": "docs/PROVIDER_SWITCH_FIX.md",
+      "size_bytes": 725,
+      "sha256": "328b0f253d3f6d51daf1a5293e7a8da5f5fa48bb0e5d85a43d5322ae8a494061"
     },
     {
       "path": "docs/RELEASE_CHECKLIST.md",
@@ -248,28 +353,33 @@
     },
     {
       "path": "docs/USER_GUIDE.md",
-      "size_bytes": 3361,
-      "sha256": "0bec3e1e4ce8b4cb784a5e7357ba499581d733cbf93fde6d26db9b65b4575b88"
+      "size_bytes": 3950,
+      "sha256": "9c55afebe1f74978242103a7a8a51fe9c0ab65b1a756663c3542b5bf13ceae84"
     },
     {
       "path": "frontend/app.js",
-      "size_bytes": 15656,
-      "sha256": "9b8c720ceabb539d2b0246564f9a51667fcb2425628b2d4d930896000e7386f6"
+      "size_bytes": 18797,
+      "sha256": "0790f08587c7109046a05aa9e4fef4fe6faf20d8ff649cc7c26613d144902336"
     },
     {
       "path": "frontend/index.html",
-      "size_bytes": 5868,
-      "sha256": "19227c3a491d31bbf59ba6169144c13afad4cb050c2eb398f8b876a0b79ce6cd"
+      "size_bytes": 6562,
+      "sha256": "7516c313d66b3d8599585c282aa187332d7768d53502671cb72cc7be2baa7cb6"
     },
     {
       "path": "frontend/styles.css",
-      "size_bytes": 10840,
-      "sha256": "0077f16fe7ee702d77d3fd0b6f9830a0660f9e6863141e70fe6078dc6647238e"
+      "size_bytes": 11673,
+      "sha256": "f64ec2bc7d2ed1b5ad13fa14fe4a1c7920125c128c3196f974c910103a45da19"
     },
     {
       "path": "model/__init__.py",
       "size_bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "model/__pycache__/__init__.cpython-313.pyc",
+      "size_bytes": 155,
+      "sha256": "4e90f5b5ea365987c8a2bfa2dac05ea1287f3402fed16c875ffb8a2d6d590b0e"
     },
     {
       "path": "model/nexora_lm/README.md",
@@ -280,6 +390,16 @@
       "path": "model/nexora_lm/__init__.py",
       "size_bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "model/nexora_lm/__pycache__/__init__.cpython-313.pyc",
+      "size_bytes": 165,
+      "sha256": "89b147624b2581b2b747c9ed0906290e154336980cce02bf877970e0f35ffdfa"
+    },
+    {
+      "path": "model/nexora_lm/__pycache__/tokenizer.cpython-313.pyc",
+      "size_bytes": 1783,
+      "sha256": "a1b82e38cf1af96b5b2fd952a90277fa5ca7f2433a73d4827b6ef7906a38693e"
     },
     {
       "path": "model/nexora_lm/config.py",
@@ -314,7 +434,7 @@
     {
       "path": "pyproject.toml",
       "size_bytes": 259,
-      "sha256": "f59ed02f9aafe641ab6192905ce5e855601d7c6de44692f102f9cdd7ad9d629f"
+      "sha256": "b31e0fc3e32c7c05007152097be0d9685a9e060302bc666c899536d54432dd6e"
     },
     {
       "path": "requirements-dev.txt",
@@ -357,9 +477,24 @@
       "sha256": "f27577ae41faf853de207934bc13a1983369cf116f3c8d68c05348b3a40ebe51"
     },
     {
+      "path": "tests/__pycache__/test_api.cpython-313.pyc",
+      "size_bytes": 11969,
+      "sha256": "435ed9f682b4a86f48fb4d1d2c206e90c6ba185ed65b0a17c6d47696c0a617fc"
+    },
+    {
+      "path": "tests/__pycache__/test_core.cpython-313.pyc",
+      "size_bytes": 2259,
+      "sha256": "86ee0f19979ade7e0706ba03f2c4ad1a5f89e25d966330f6dae0539c1cde6d63"
+    },
+    {
+      "path": "tests/__pycache__/test_providers.cpython-313.pyc",
+      "size_bytes": 7629,
+      "sha256": "23edb5fa73e9ac3b62f11d9652a99b987665d3567e7719e7ad1b823636941000"
+    },
+    {
       "path": "tests/test_api.py",
-      "size_bytes": 4388,
-      "sha256": "7213c5c5fb2e8cf530430bc47b7ba0f1530b4de93e6bfded64523b99f52f1c6e"
+      "size_bytes": 6603,
+      "sha256": "38c7b5ef55a12d5e23f352c41eb6a755a9dbfb2de383a2e585339d8ea0bee162"
     },
     {
       "path": "tests/test_core.py",
@@ -368,8 +503,8 @@
     },
     {
       "path": "tests/test_providers.py",
-      "size_bytes": 2824,
-      "sha256": "96b0424bcb45679a0a03796818f3a0170b9960f2acc68be92d61240b35c219d4"
+      "size_bytes": 4504,
+      "sha256": "a2793d1a9a9ad7db5c26a9457a2e885c747a84a8c981390fe944361290589ae5"
     }
   ]
 }

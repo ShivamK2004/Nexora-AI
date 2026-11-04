@@ -43,6 +43,23 @@ class APITests(unittest.TestCase):
     def test_provider_switch_rejects_unknown_provider(self):
         response = self.client.post('/api/provider', json={'provider': 'not-a-provider'})
         self.assertEqual(response.status_code, 400)
+
+    def test_model_catalog_contains_gemini_and_claude_choices(self):
+        response = self.client.get('/api/models')
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertIn('anthropic', body['providers'])
+        self.assertIn('gemini-2.5-flash', [m['id'] for m in body['catalog']['gemini']])
+        self.assertIn('claude-sonnet-5-5', [m['id'] for m in body['catalog']['anthropic']])
+
+    def test_chat_accepts_model_and_provider_selection(self):
+        response = self.client.post('/api/chat', json={
+            'message': 'Hello Nexora', 'provider': 'mock', 'model': 'mock'
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['provider'], 'mock')
+        self.assertEqual(response.json()['model'], 'mock')
+
     def test_chat_mock(self):
         response=self.client.post('/api/chat',json={'message':'Hello Nexora'})
         self.assertEqual(response.status_code,200)

@@ -1,5 +1,8 @@
 let conversationId = null;
 let pendingFiles = [];
+let modelCatalog = {};
+let modelDefaults = {};
+let providerConfigured = {};
 const $ = (id) => document.getElementById(id);
 const panels = ['chat', 'knowledge', 'memory', 'agents'];
 
@@ -165,6 +168,8 @@ async function sendMessage(text) {
   const form = new FormData();
   form.append('message', text);
   if (conversationId) form.append('conversation_id', conversationId);
+  form.append('provider', $('provider-select').value);
+  form.append('model', $('model-select').value);
   selectedFiles.forEach((item) => form.append('files', item.file, item.file.name));
   try {
     const data = await api('/api/chat', { method: 'POST', body: form });
@@ -344,44 +349,80 @@ $('set-key').addEventListener('click', () => {
   location.reload();
 });
 
-function renderProviderStatus(data) {
-  const provider = data.provider || data.active_provider || 'mock';
-  const model = data.model || data.configured_model || '';
-  $('provider-select').value = provider;
-  $('mode-pill').textContent = `${provider.toUpperCase()} · ${model}`;
-  $('provider-status').textContent = data.provider_configured === false
-    ? 'Gemini selected · API key missing'
-    : `API online · ${provider}`;
-  $('chat-hint').textContent = data.provider_message || `Provider: ${provider} · ${model}`;
-  if (data.provider_configured === false) $('chat-hint').textContent += ' Add GEMINI_API_KEY to .env, then restart Nexora.';
+function selectedModelFor(provider) {
+  const options = modelCatalog[provider] || [];
+  const saved = localStorage.getItem(`nexora-model-${provider}`);
+  if (saved && options.some((item) => item.id === saved)) return saved;
+  const preferred = modelDefaults[provider];
+  if (preferred && options.some((item) => item.id === preferred)) return preferred;
+  return options[0]?.id || '';
 }
 
-$('provider-select').addEventListener('change', async (event) => {
-  const select = event.currentTarget;
-  const nextProvider = select.value;
-  select.disabled = true;
-  $('provider-status').textContent = 'Switching provider…';
-  try {
-    const data = await api('/api/provider', {
-      method: 'POST',
-      body: JSON.stringify({ provider: nextProvider }),
-    });
-    renderProviderStatus(data);
-    if (data.provider_configured === false) {
-      alert('Gemini is selected, but no API key is configured. Add GEMINI_API_KEY to your .env file.');
-    }
-  } catch (error) {
-    alert('Could not change provider: ' + error.message);
-    try { renderProviderStatus(await api('/api/health')); } catch { /* keep current status */ }
-  } finally {
-    select.disabled = false;
+function refreshModelOptions(preferredModel = '') {
+  const provider = $('provider-select').value;
+  const select = $('model-select');
+  const options = modelCatalog[provider] || [];
+  select.innerHTML = '';
+  options.forEach((item) => {
+    const option = document.createElement('option');
+    option.value = item.id;
+    option.textContent = item.label;
+    select.append(option);
+  });
+  const saved = localStorage.getItem(`nexora-model-${provider}`);
+  const wanted = preferredModel || saved || modelDefaults[provider] || options[0]?.id || '';
+  select.value = options.some((item) => item.id === wanted) ? wanted : (options[0]?.id || '');
+  if (select.value) localStorage.setItem(`nexora-model-${provider}`, select.value);
+  renderSelectedModelStatus();
+}
+
+function renderSelectedModelStatus() {
+  const provider = $('provider-select').value;
+  const model = $('model-select').value;
+  const labels = { mock: 'MOCK', gemini: 'GEMINI', anthropic: 'CLAUDE', ollama: 'OLLAMA' };
+  $('mode-pill').textContent = `${labels[provider] || provider.toUpperCase()} · ${model}`;
+  if (providerConfigured[provider] === false) {
+    const keyName = { gemini: 'GEMINI_API_KEY', anthropic: 'ANTHROPIC_API_KEY' }[provider];
+    $('provider-status').textContent = `${labels[provider] || provider} · API key missing`;
+    $('chat-hint').textContent = `Add ${keyName} in your server environment, then redeploy.`;
+  } else if (provider === 'mock') {
+    $('provider-status').textContent = 'Mock mode · no AI';
+    $('chat-hint').textContent = 'Mock mode does not call a language model.';
+  } else if (provider === 'ollama') {
+    $('provider-status').textContent = 'Ollama selected';
+    $('chat-hint').textContent = 'The Ollama URL must be reachable from the Nexora server.';
+  } else {
+    $('provider-status').textContent = `API configured · ${labels[provider]}`;
+    $('chat-hint').textContent = `Each new message will use ${model}.`;
   }
+}
+
+function renderProviderStatus(data) {
+  modelCatalog = data.catalog || {};
+  modelDefaults = data.defaults || {};
+  providerConfigured = data.configured || {};
+  const savedProvider = localStorage.getItem('nexora-provider');
+  const initialProvider = savedProvider && modelCatalog[savedProvider]
+    ? savedProvider : (data.active_provider || 'mock');
+  $('provider-select').value = modelCatalog[initialProvider] ? initialProvider : 'mock';
+  refreshModelOptions();
+}
+
+$('provider-select').addEventListener('change', () => {
+  localStorage.setItem('nexora-provider', $('provider-select').value);
+  refreshModelOptions();
+});
+
+$('model-select').addEventListener('change', () => {
+  const provider = $('provider-select').value;
+  localStorage.setItem(`nexora-model-${provider}`, $('model-select').value);
+  renderSelectedModelStatus();
 });
 
 (async () => {
   try {
-    const h = await api('/api/health');
-    renderProviderStatus(h);
+    const availableModels = await api('/api/models');
+    renderProviderStatus(availableModels);
   } catch (e) {
     $('provider-status').textContent = 'API unavailable';
     $('chat-hint').textContent = e.message;

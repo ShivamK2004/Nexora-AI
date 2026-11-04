@@ -30,6 +30,8 @@ class Settings(BaseSettings):
     llm_provider: str = Field("mock", validation_alias=AliasChoices("NEXORA_LLM_PROVIDER", "LLM_PROVIDER"))
     gemini_api_key: str = Field("", validation_alias=AliasChoices("GEMINI_API_KEY", "NEXORA_GEMINI_API_KEY"))
     gemini_model: str = Field("gemini-3.8-flash", validation_alias=AliasChoices("GEMINI_MODEL", "NEXORA_GEMINI_MODEL"))
+    anthropic_api_key: str = Field("", validation_alias=AliasChoices("ANTHROPIC_API_KEY", "NEXORA_ANTHROPIC_API_KEY"))
+    anthropic_model: str = Field("claude-sonnet-5-5", validation_alias=AliasChoices("ANTHROPIC_MODEL", "NEXORA_ANTHROPIC_MODEL"))
     ollama_url: str = Field(
         "http://localhost:11434",
         validation_alias=AliasChoices("OLLAMA_BASE_URL", "NEXORA_OLLAMA_URL", "OLLAMA_URL"),

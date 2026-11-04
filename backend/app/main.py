@@ -6,11 +6,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from backend.app.config import get_settings
+from backend.app.services.models import model_catalog, model_defaults
 from backend.app.db import init_db
 from backend.app.routers import chat, documents, memory, agents, tools
 
 settings = get_settings()
-app = FastAPI(title=settings.app_name, version="1.0.0", description="Nexora AI assistant and research platform API")
+app = FastAPI(title=settings.app_name, version="1.3.0", description="Nexora AI assistant and research platform API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
@@ -33,13 +34,24 @@ def verify_api_key(x_nexora_key: str | None = Header(default=None)):
 def _provider_details() -> dict:
     s = get_settings()
     provider = s.llm_provider.lower().strip()
-    model = {"gemini": s.gemini_model, "ollama": s.ollama_model}.get(provider, "mock")
-    configured = provider != "gemini" or bool(s.gemini_api_key.strip())
+    model = {
+        "gemini": s.gemini_model,
+        "anthropic": s.anthropic_model,
+        "ollama": s.ollama_model,
+    }.get(provider, "mock")
+    configured = {
+        "mock": True,
+        "gemini": bool(s.gemini_api_key.strip()),
+        "anthropic": bool(s.anthropic_api_key.strip()),
+        "ollama": bool(s.ollama_url.strip() and s.ollama_model.strip()),
+    }.get(provider, False)
     message = ""
     if provider == "mock":
         message = "Mock mode is active. No language model is called."
     elif provider == "gemini" and not configured:
-        message = "Gemini is selected, but GEMINI_API_KEY is missing from .env."
+        message = "Gemini is selected, but GEMINI_API_KEY is not configured."
+    elif provider == "anthropic" and not configured:
+        message = "Claude is selected, but ANTHROPIC_API_KEY is not configured."
     elif provider == "ollama":
         message = "Ollama is selected. Make sure Ollama is running and this model is installed."
     return {
@@ -79,14 +91,27 @@ def _write_provider_to_env(provider: str) -> None:
 
 @app.get("/api/health", tags=["system"])
 def health():
-    return {"status": "ok", "service": "nexora-ai", "version": "1.0.0", **_provider_details()}
+    return {"status": "ok", "service": "nexora-ai", "version": "1.3.0", **_provider_details()}
 
 
 @app.get("/api/models", tags=["system"])
 def models():
+    s = get_settings()
     details = _provider_details()
-    return {"active_provider": details["provider"], "configured_model": details["model"],
-            "providers": ["mock", "gemini", "ollama"], "provider_configured": details["provider_configured"]}
+    return {
+        "active_provider": details["provider"],
+        "configured_model": details["model"],
+        "providers": ["mock", "gemini", "anthropic", "ollama"],
+        "catalog": model_catalog(s),
+        "defaults": model_defaults(s),
+        "configured": {
+            "mock": True,
+            "gemini": bool(s.gemini_api_key.strip()),
+            "anthropic": bool(s.anthropic_api_key.strip()),
+            "ollama": bool(s.ollama_url.strip() and s.ollama_model.strip()),
+        },
+        "provider_configured": details["provider_configured"],
+    }
 
 
 @app.post("/api/provider", tags=["system"], dependencies=[Depends(verify_api_key)])
@@ -97,8 +122,8 @@ async def set_provider(request: Request):
     except ValueError as exc:
         raise HTTPException(status_code=400, detail="Send JSON containing a provider field.") from exc
     provider = str(payload.get("provider", "")).strip().lower()
-    if provider not in {"mock", "gemini", "ollama"}:
-        raise HTTPException(status_code=400, detail="Provider must be mock, gemini, or ollama.")
+    if provider not in {"mock", "gemini", "anthropic", "ollama"}:
+        raise HTTPException(status_code=400, detail="Provider must be mock, gemini, anthropic, or ollama.")
     try:
         _write_provider_to_env(provider)
     except OSError as exc:

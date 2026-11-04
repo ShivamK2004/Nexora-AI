@@ -74,53 +74,41 @@ ollama pull llama3.2-vision
 
 Then set `OLLAMA_MODEL=llama3.2-vision`. A text-only model such as `llama3:latest` cannot understand attached photos; the backend will still forward the image payload, but the selected model must support vision.
 
-## Switch provider
+## Choose a provider and model
 
-Set exactly one active provider in `.env`:
+The chat header has two selectors: **AI Provider** and **Model**. Your selected provider/model is saved in this browser and sent with each chat request, so different browser users can choose different models without changing the server-wide environment.
 
-- `LLM_PROVIDER=mock` — deterministic local demo; no generated AI output.
-- `LLM_PROVIDER=gemini` — Gemini API, requires `GEMINI_API_KEY`.
-- `LLM_PROVIDER=ollama` — local Ollama server and selected model.
+Supported providers:
 
-The app reads the settings at server startup, so restart Uvicorn after changing provider/model settings.
+- **Mock** — interface testing only; it does not call an AI model.
+- **Google Gemini** — requires `GEMINI_API_KEY`.
+- **Anthropic Claude** — requires `ANTHROPIC_API_KEY`.
+- **Ollama** — requires an Ollama server reachable from the Nexora backend; on Render, `localhost` means the Render container, not your PC.
 
-## User data and attachments
+Add provider secrets in your host dashboard (Render → Environment) or in local `.env`:
 
-The default sample database URL is `sqlite:///data/agent_harness.db`. Chat history and uploaded files are stored locally under `data/`. The `.gitignore` excludes `.env`, virtual environments, and local data. Deleting a conversation also deletes the attachment files referenced by that conversation.
-
-When Gemini is active, prompts, relevant chat context, and attached images/documents are sent to Google's API. When Ollama is active, the payload is sent to the configured local Ollama server. Review provider data practices before using private information. Scanned PDF OCR, office documents, audio/video, authentication, and production multi-user isolation are not included in this starter.
-
-## Run tests
-
-```powershell
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+```dotenv
+GEMINI_API_KEY=your_google_ai_studio_key
+ANTHROPIC_API_KEY=your_anthropic_key
 ```
 
-## Project layout
+The Claude options use Anthropic's Messages API. Model availability depends on the account and provider. The model list is defined in `backend/app/services/models.py`; add or remove IDs there when provider model availability changes.
 
-```text
-backend/app/       FastAPI routes, settings, SQLite, LLM provider adapters
-frontend/          Nexora web UI
-model/nexora_lm/   Byte tokenizer, Transformer, training and generation prototype
-scripts/           Dataset preparation and smoke checks
-datasets/          Sample corpus and knowledge document
-docs/              User, API, training, architecture, and security guides
-tests/             API, core, and provider tests
-```
+Gemini model choices include `gemini-3.8-flash` and `gemini-2.5-flash`. Google currently notes that access to Gemini 2.5 models is restricted for new projects, so use the latest generally available Gemini Flash choice if your account cannot access 2.5.
 
-## Later: replace Gemini/Ollama with NexoraLM
+Claude choices include `claude-haiku-5-5`, `claude-sonnet-5-5`, and `claude-opus-5-5`. See the providers' official model catalogs before selecting a model for production.
 
-The chat route calls one provider service through a stable `chat(messages, system)` contract. Once NexoraLM has a usable checkpoint and inference engine, implement a native `nexora` provider in `backend/app/services/llm.py`, load your own checkpoint/tokenizer, and add `nexora` as an allowed provider. This keeps chat history, file upload, retrieval, UI, and database independent from whichever model generates the answer.
-
-The included small byte-level Transformer is an educational pipeline smoke test—not a competitive assistant. Train it on a larger, licensed corpus, evaluate it, and build instruction tuning before routing everyday chats to it.
+The model selection is included in each chat request. Chat history, attachments, retrieval and the web UI remain independent of the chosen provider.
 
 ## License
 
 MIT. Review third-party package, model, and dataset licenses independently before redistribution.
 
 
-## Switching AI providers
+## Documents and images
 
-Use the **AI PROVIDER** selector in the top-right of the web app. Choose **Google Gemini** or **Ollama local**; Nexora saves the selection to the project `.env` file and applies it immediately. `Mock` is only a test mode and does not generate AI answers. For Gemini, set `GEMINI_API_KEY` in `.env`. For Ollama, start the Ollama app and ensure the value in `OLLAMA_MODEL` is installed (`ollama list`).
+PDF attachments with selectable text are extracted locally and included in the model prompt. Scanned/image-only PDF files need OCR before their contents can be summarized. Claude, Gemini and vision-capable Ollama models can receive supported image attachments.
 
-PDF attachments with selectable text are extracted locally and included in the model prompt. Scanned/image-only PDF files need OCR before their contents can be summarized.
+### Multi-model selector (v1.0)
+
+The chat header includes separate provider and model selectors. The chosen provider/model is saved in browser local storage and sent with each message. Server-side API keys remain in the backend environment and are never sent to the browser.

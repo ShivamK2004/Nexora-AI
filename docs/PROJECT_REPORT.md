@@ -1,7 +1,7 @@
 # Nexora AI — Complete Project Report
 
 **Project:** Nexora AI / NexoraLM / NexoraGPT  
-**Version:** 1.0.0 chat workspace release  
+**Version:** 1.3.0 chat workspace release  
 **Report date:** 4 November 2026  
 **Prepared for:** Nexora AI project development  
 **Status:** Runnable prototype and engineering baseline; not a trained large-scale foundation model.

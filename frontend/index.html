@@ -33,8 +33,12 @@
           <select id="provider-select" aria-label="Choose AI provider">
             <option value="mock">Mock (no AI)</option>
             <option value="gemini">Google Gemini</option>
+            <option value="anthropic">Anthropic Claude</option>
             <option value="ollama">Ollama local</option>
           </select>
+        </label>
+        <label class="provider-control model-control" for="model-select"><span>MODEL</span>
+          <select id="model-select" aria-label="Choose AI model"><option value="">Loading models…</option></select>
         </label>
         <span class="mode-pill" id="mode-pill">STARTING…</span>
         <button id="set-key" class="text-button">Access key</button>

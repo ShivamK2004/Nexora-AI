@@ -1,0 +1,20 @@
+sequenceDiagram
+  participant User
+  participant Web
+  participant API as FastAPI
+  participant DB as SQLite
+  participant RAG as Knowledge Retrieval
+  participant Mem as Memory Retrieval
+  participant LLM as Model Provider
+  User->>Web: Send prompt
+  Web->>API: POST /api/chat
+  API->>DB: Load recent conversation
+  API->>RAG: Retrieve relevant chunks
+  RAG->>DB: Search indexed chunks
+  API->>Mem: Retrieve relevant saved memories
+  Mem->>DB: Search user memories
+  API->>LLM: Prompt + bounded context
+  LLM-->>API: Assistant answer
+  API->>DB: Persist user and assistant messages
+  API-->>Web: Answer + source metadata
+  Web-->>User: Render response

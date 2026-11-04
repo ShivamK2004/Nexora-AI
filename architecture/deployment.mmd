@@ -1,0 +1,8 @@
+flowchart LR
+  Browser[Browser Client] --> Proxy[HTTPS Reverse Proxy]
+  Proxy --> App[FastAPI Container]
+  App --> DB[(Managed PostgreSQL in production)]
+  App --> Store[(Object Storage in production)]
+  App --> Cache[(Redis in production)]
+  App --> Model[Private Model Endpoint]
+  App --> Obs[Logs / Metrics / Traces]

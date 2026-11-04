@@ -1,0 +1,375 @@
+{
+  "project": "Nexora AI",
+  "version": "1.0.0",
+  "generated_on": "2026-11-04",
+  "file_count": 74,
+  "status": "Local chat workspace with Gemini/Ollama test providers, persisted chat history and file/image attachments; no pretrained large NexoraLM included.",
+  "manifest_note": "This manifest lists hashes for every packaged file except itself.",
+  "files": [
+    {
+      "path": ".env.example",
+      "size_bytes": 959,
+      "sha256": "36c5e247407858d234b232855a67db9895e79ec6032fcb0230e6211bfebae85d"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "size_bytes": 428,
+      "sha256": "38b4c56a41257c9596569bbd2e01ef24c5cfb81c4b591c52090ee0ff3d10780e"
+    },
+    {
+      "path": ".gitignore",
+      "size_bytes": 169,
+      "sha256": "bd5a7f223a9057c8f90145dcde7e7c7cc005bd56f5821e777c88f098a7feb946"
+    },
+    {
+      "path": "Dockerfile",
+      "size_bytes": 299,
+      "sha256": "e8b44c922bf5fa35a9571da26329f56623babc7b3598f1818877721a84864f50"
+    },
+    {
+      "path": "LICENSE",
+      "size_bytes": 820,
+      "sha256": "0fc69f9853c83023aabcf4a280aea59dedb3c7a562f332c1c646b2bb41f7e1a4"
+    },
+    {
+      "path": "Makefile",
+      "size_bytes": 210,
+      "sha256": "678466a14e9665fc88e474d2b8cbee6ef8ea30c6737fd699953d286f1ec17cf0"
+    },
+    {
+      "path": "README.md",
+      "size_bytes": 5843,
+      "sha256": "ea04da21bc1b12bea434987c1e5a34319522dd560920ef021b0b1e5dd19084d8"
+    },
+    {
+      "path": "architecture/chat_sequence.mmd",
+      "size_bytes": 653,
+      "sha256": "8f913181bb29f609f9ccd4fcb6c0ace95a62ea951faa821474c3347470ab4a38"
+    },
+    {
+      "path": "architecture/deployment.mmd",
+      "size_bytes": 320,
+      "sha256": "dda73658a9c1e6ca280f91e754a01283f2b38a609cc91bcdebd3774248504081"
+    },
+    {
+      "path": "architecture/system.mmd",
+      "size_bytes": 849,
+      "sha256": "66fa6cb6606511b5481d6c68ce93efe7807bdb39501edb1aab3b7ef0924f5c11"
+    },
+    {
+      "path": "backend/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/app/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/app/config.py",
+      "size_bytes": 3390,
+      "sha256": "bf8ef5abe1ba7405ac147c110d447b28362784028997ea44777d9b0a25278df8"
+    },
+    {
+      "path": "backend/app/db.py",
+      "size_bytes": 2767,
+      "sha256": "5c4c8e90a97f70a30cb66b08b29e33ce70c0320ac4ddd902e923c854a84ac9a7"
+    },
+    {
+      "path": "backend/app/main.py",
+      "size_bytes": 2203,
+      "sha256": "fa3a6bdbea79c20a0294c99cbb74c9795aafc06b49a11956b5baebb7358a81f5"
+    },
+    {
+      "path": "backend/app/routers/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/app/routers/agents.py",
+      "size_bytes": 602,
+      "sha256": "3485cb6191033e360289ae996654daa991259b8951c924f6e0d821c4e3b673d6"
+    },
+    {
+      "path": "backend/app/routers/chat.py",
+      "size_bytes": 14428,
+      "sha256": "459f1771129eb191ee89289d3f01cd1218e5d1b87d4236bf906595510a749a06"
+    },
+    {
+      "path": "backend/app/routers/documents.py",
+      "size_bytes": 814,
+      "sha256": "7a4bfe88f180dc8cb6bb84ba84ca2c798efde8eace9a5fe7e2dd126c0bae71cf"
+    },
+    {
+      "path": "backend/app/routers/memory.py",
+      "size_bytes": 634,
+      "sha256": "2b5ef7f6a90057e1ae28c93106ca2f8a575fb40d2b18e71b69dd7874f9452d00"
+    },
+    {
+      "path": "backend/app/routers/tools.py",
+      "size_bytes": 670,
+      "sha256": "40b28ef34da20aafee42403a425b9703aa2c6ac092575f702cb70b4be101d0b0"
+    },
+    {
+      "path": "backend/app/schemas.py",
+      "size_bytes": 554,
+      "sha256": "cd5ee04262cbc247d706da36d8571a660b24c969dcf28ea2f1c2927dcad5217f"
+    },
+    {
+      "path": "backend/app/services/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/app/services/agents.py",
+      "size_bytes": 2362,
+      "sha256": "cd0e961c6b6b5db13fbe7dcd68cf6da7d2314b638030efa4416a5e1fb57dc53a"
+    },
+    {
+      "path": "backend/app/services/knowledge.py",
+      "size_bytes": 5336,
+      "sha256": "635eda5262dac6e5f9b1eeadba7dc1d1ba04cd05a4600f06572cab49385a8647"
+    },
+    {
+      "path": "backend/app/services/llm.py",
+      "size_bytes": 5705,
+      "sha256": "fd16cae291e91285394b68362d524d63f6d0c402d0f50f2c81e3e52b4ffe813d"
+    },
+    {
+      "path": "backend/app/services/memory.py",
+      "size_bytes": 1358,
+      "sha256": "df5cebf3a43f3a231363726304fb122fd5ed2f38f504d130061516bfc23ff254"
+    },
+    {
+      "path": "backend/app/services/tools.py",
+      "size_bytes": 1556,
+      "sha256": "fce574b4636a001dd48ff18905d86a2b7122f198f873eac2d306f2efc9f04107"
+    },
+    {
+      "path": "checkpoints/.gitkeep",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "data/.gitkeep",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "datasets/knowledge_samples/nexora_overview.md",
+      "size_bytes": 607,
+      "sha256": "c07f81b2bf9604ca2444b36066399af65b3e339e85949cda6680b1b78ec2d558"
+    },
+    {
+      "path": "datasets/sample_corpus.txt",
+      "size_bytes": 1441,
+      "sha256": "da0a48bfe8610b6bc8de3ae9b74fce4414b6efd9a4f60c38db24fed4149955c7"
+    },
+    {
+      "path": "docker-compose.yml",
+      "size_bytes": 236,
+      "sha256": "eca06dfd0cb830b67e58af9cd6b8becd63a7af3e7d80c60ba0dccdc9330774d7"
+    },
+    {
+      "path": "docs/API.md",
+      "size_bytes": 2352,
+      "sha256": "9593726c7250707a4f557433ea00220cf1acf4a8fdc70041fe6bb3c72ca9f0ee"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "size_bytes": 3281,
+      "sha256": "fb453dcadfae9c2a6cc77d9800d36ca540cc0f23337ea6387e5fb66cfb10b201"
+    },
+    {
+      "path": "docs/DATA_GOVERNANCE.md",
+      "size_bytes": 1415,
+      "sha256": "250ebb0ea46df0b0d3e742e6320da19a0347bde97d826d6cf99b7bd3d129e844"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "size_bytes": 1985,
+      "sha256": "d381635e0de4f88809aa53cbeba0d2ac11f6f4f57f89d336d841a9953de46c19"
+    },
+    {
+      "path": "docs/DEPLOYMENT.md",
+      "size_bytes": 1141,
+      "sha256": "113e13ed7cdffc3b4e692672800b8f6234a09da500c6f6168a1476cdbcffbd67"
+    },
+    {
+      "path": "docs/DEVELOPER_GUIDE.md",
+      "size_bytes": 1529,
+      "sha256": "2b7dd1799a7d304721cd22b87c5ecf9e39f62a5490b9559730144c9a4be369e1"
+    },
+    {
+      "path": "docs/EXISTING_REPOSITORY_MERGE.md",
+      "size_bytes": 1965,
+      "sha256": "05ff8968665e5c23d19d15fee28420dd69c69ca004ebd584519a080530ad006d"
+    },
+    {
+      "path": "docs/IMPLEMENTATION_STATUS.md",
+      "size_bytes": 2223,
+      "sha256": "597e10acd0f28e15c7cb9379795c0492c49b4bfd458311d2a2f941ae16656f4b"
+    },
+    {
+      "path": "docs/MODEL_TRAINING.md",
+      "size_bytes": 2944,
+      "sha256": "951f15ade5dc1851929e017aae90c79316fbb9953925d6447523ac2ef77326f0"
+    },
+    {
+      "path": "docs/PROJECT_REPORT.md",
+      "size_bytes": 8944,
+      "sha256": "0df8629c72b1e8025eba86c175dfaa744eb25dd8688809bc617d94e466d3145e"
+    },
+    {
+      "path": "docs/RELEASE_CHECKLIST.md",
+      "size_bytes": 921,
+      "sha256": "fa7c9339b738dbd076afbd438f6f9f7d3461a49cead41e9b179b665067b086c3"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "size_bytes": 3985,
+      "sha256": "48d94544c06339ddb773ce8f2d3ead6d7012ca27510a7e5a4ee6076554a3fb22"
+    },
+    {
+      "path": "docs/SECURITY_AND_PRIVACY.md",
+      "size_bytes": 2399,
+      "sha256": "7f22ed1dfc9b045bcd938047fb7fb3b2df9f2274e93ddea7f642ada56a9cd415"
+    },
+    {
+      "path": "docs/SYSTEM_DESIGN.md",
+      "size_bytes": 3435,
+      "sha256": "016a92a24970c63883e72932c81003d8a80b97cec32752b09934cdd052f5b130"
+    },
+    {
+      "path": "docs/TESTING.md",
+      "size_bytes": 1033,
+      "sha256": "da3553958983be03229603be04f7f2cbdcb30786c4fea00692a7c5267af906e6"
+    },
+    {
+      "path": "docs/USER_GUIDE.md",
+      "size_bytes": 3361,
+      "sha256": "0bec3e1e4ce8b4cb784a5e7357ba499581d733cbf93fde6d26db9b65b4575b88"
+    },
+    {
+      "path": "frontend/app.js",
+      "size_bytes": 15656,
+      "sha256": "9b8c720ceabb539d2b0246564f9a51667fcb2425628b2d4d930896000e7386f6"
+    },
+    {
+      "path": "frontend/index.html",
+      "size_bytes": 5868,
+      "sha256": "19227c3a491d31bbf59ba6169144c13afad4cb050c2eb398f8b876a0b79ce6cd"
+    },
+    {
+      "path": "frontend/styles.css",
+      "size_bytes": 10840,
+      "sha256": "0077f16fe7ee702d77d3fd0b6f9830a0660f9e6863141e70fe6078dc6647238e"
+    },
+    {
+      "path": "model/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "model/nexora_lm/README.md",
+      "size_bytes": 639,
+      "sha256": "30be02aa4f69d0542854c966cad33c6aca8cffffbfa160b962dad40d357dc654"
+    },
+    {
+      "path": "model/nexora_lm/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "model/nexora_lm/config.py",
+      "size_bytes": 456,
+      "sha256": "1e0af119b6b44ac4955d90743995bd01ba7b183473387b1b9fa8224ec9c006ca"
+    },
+    {
+      "path": "model/nexora_lm/generate.py",
+      "size_bytes": 947,
+      "sha256": "cf1e0a168539075b277f8c48eba368404994a652a5c7bb8a93812acfc413232b"
+    },
+    {
+      "path": "model/nexora_lm/model.py",
+      "size_bytes": 2810,
+      "sha256": "fa24716699a8fe986214479c3b22ea68a08de3bf0b24cb315705794bf535d907"
+    },
+    {
+      "path": "model/nexora_lm/tokenizer.py",
+      "size_bytes": 702,
+      "sha256": "f94504a2ec7fef69b888ebc6645dedefe67df1ca164142d4bd84f8f7bdaf2613"
+    },
+    {
+      "path": "model/nexora_lm/train.py",
+      "size_bytes": 2313,
+      "sha256": "21ba84a399ffd95922bc880c7dca10a3596df3ce4f5005e13634c1e7bba95388"
+    },
+    {
+      "path": "postman/Nexora_AI.postman_collection.json",
+      "size_bytes": 1948,
+      "sha256": "85c79133892e99a1e07bfdec1ff8363c7845c1d04679cf3898b1c444329b55ec"
+    },
+    {
+      "path": "pyproject.toml",
+      "size_bytes": 259,
+      "sha256": "f59ed02f9aafe641ab6192905ce5e855601d7c6de44692f102f9cdd7ad9d629f"
+    },
+    {
+      "path": "requirements-dev.txt",
+      "size_bytes": 42,
+      "sha256": "cef50e9bda9b551afa07bf4f31b6817578ea97a3e0d3ef3b68dd0dbcef2d1904"
+    },
+    {
+      "path": "requirements-embeddings.txt",
+      "size_bytes": 59,
+      "sha256": "00d486ca9d5aaeb10c39da25243c7a25428a44b6599005116efa17eadbaf25c5"
+    },
+    {
+      "path": "requirements-model.txt",
+      "size_bytes": 31,
+      "sha256": "0ada6e90e1e3d56a507241b7976352ba8beb98441334efd9648acc8157c5841c"
+    },
+    {
+      "path": "requirements.txt",
+      "size_bytes": 177,
+      "sha256": "69b2530f9addb845e18561ee09cad96ee0144b0f772cca66e0c05a164833fb3d"
+    },
+    {
+      "path": "scripts/prepare_dataset.py",
+      "size_bytes": 820,
+      "sha256": "0fc92a8ac6eb0af657c36a587b8a91b4c877db1183988d2b3fb658ed1fa44900"
+    },
+    {
+      "path": "scripts/smoke_test.py",
+      "size_bytes": 227,
+      "sha256": "a4e5f8b33c6ee2375f0c4f5d18e22ecf8c1b14845b870c91b36326393417c9ac"
+    },
+    {
+      "path": "start_windows.bat",
+      "size_bytes": 107,
+      "sha256": "3305e1d2799309e1834019c74c410c17fc968cda3309283c76ecabe2282dcb67"
+    },
+    {
+      "path": "start_windows.ps1",
+      "size_bytes": 1678,
+      "sha256": "f27577ae41faf853de207934bc13a1983369cf116f3c8d68c05348b3a40ebe51"
+    },
+    {
+      "path": "tests/test_api.py",
+      "size_bytes": 4388,
+      "sha256": "7213c5c5fb2e8cf530430bc47b7ba0f1530b4de93e6bfded64523b99f52f1c6e"
+    },
+    {
+      "path": "tests/test_core.py",
+      "size_bytes": 901,
+      "sha256": "20047b193de50411cf051e80f6a985a2e77b5714e492af4b520300f1a6df91e1"
+    },
+    {
+      "path": "tests/test_providers.py",
+      "size_bytes": 2824,
+      "sha256": "96b0424bcb45679a0a03796818f3a0170b9960f2acc68be92d61240b35c219d4"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+flowchart TB
+  U[User / Browser] --> FE[Web Frontend]
+  FE --> API[FastAPI Gateway]
+  API --> AUTH[Optional API Key Gate]
+  AUTH --> CHAT[Chat Router]
+  AUTH --> DOC[Document Router]
+  AUTH --> MEM[Memory Router]
+  AUTH --> AG[Agent Router]
+  CHAT --> ORCH[Context Assembly]
+  ORCH --> RET[Knowledge Retrieval]
+  ORCH --> MRET[Memory Retrieval]
+  ORCH --> LLM[LLM Provider Adapter]
+  LLM --> OLLAMA[Ollama]
+  LLM --> GEM[Gemini API]
+  LLM --> OLL[Local Ollama]
+  LLM --> MOCK[Mock Provider]
+  DOC --> PARSE[Text / PDF Parser]
+  PARSE --> CHUNK[Chunking]
+  CHUNK --> SQLITE[(SQLite)]
+  RET --> SQLITE
+  MEM --> SQLITE
+  AG --> WORKER[Bounded Specialist Worker]
+  WORKER --> RET
+  WORKER --> LLM
+  subgraph Research Model
+    DATA[Curated Dataset] --> TOK[Byte Tokenizer]
+    TOK --> TRAIN[PyTorch Training]
+    TRAIN --> CKPT[Model Checkpoint]
+  end

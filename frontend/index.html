@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Nexora AI — your personal AI workspace">
+  <title>Nexora AI</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">N</div><div><strong>NEXORA</strong><span>AI WORKSPACE</span></div></div>
+    <button id="new-chat" class="new-chat"><span class="plus">＋</span><span>New chat</span></button>
+    <div class="history-heading"><span>YOUR CHATS</span><button id="refresh-chats" title="Refresh chats" aria-label="Refresh chats">↻</button></div>
+    <input id="history-search" class="history-search" placeholder="Search conversations…" autocomplete="off">
+    <div id="conversation-list" class="conversation-list"><div class="history-empty">Your conversations will appear here.</div></div>
+    <div class="side-divider"></div>
+    <div class="side-label">WORKSPACE</div>
+    <button class="nav-item active" data-panel="chat"><span class="nav-icon">◉</span><span>Assistant</span></button>
+    <button class="nav-item" data-panel="knowledge"><span class="nav-icon">▤</span><span>Knowledge base</span></button>
+    <button class="nav-item" data-panel="memory"><span class="nav-icon">◇</span><span>Memory</span></button>
+    <button class="nav-item" data-panel="agents"><span class="nav-icon">⌘</span><span>Agents</span></button>
+    <div class="sidebar-bottom"><div class="status-dot"></div><span id="provider-status">Checking service…</span></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><span class="eyebrow">NEXORA INTELLIGENCE</span><h1 id="page-title">Assistant</h1></div>
+      <div class="top-actions">
+        <label class="provider-control" for="provider-select"><span>AI PROVIDER</span>
+          <select id="provider-select" aria-label="Choose AI provider">
+            <option value="mock">Mock (no AI)</option>
+            <option value="gemini">Google Gemini</option>
+            <option value="ollama">Ollama local</option>
+          </select>
+        </label>
+        <span class="mode-pill" id="mode-pill">STARTING…</span>
+        <button id="set-key" class="text-button">Access key</button>
+        <a href="/docs" target="_blank" rel="noreferrer">API docs ↗</a>
+      </div>
+    </header>
+
+    <section id="panel-chat" class="panel active">
+      <div id="messages" class="messages">
+        <div class="welcome"><div class="orb">✳</div><p class="eyebrow">WELCOME TO NEXORA</p><h2>Your workspace for ideas.</h2><p>Ask a question, upload a file or photo, and keep every conversation in your history.</p>
+          <div class="suggestions"><button>Explain how a large language model works</button><button>Help me understand a PDF</button><button>Review this screenshot</button></div>
+        </div>
+      </div>
+      <div class="composer-wrap">
+        <div id="attachment-preview" class="attachment-preview"></div>
+        <div class="composer">
+          <input id="chat-file-input" type="file" multiple hidden accept=".pdf,.txt,.md,.markdown,.csv,.json,.py,.sql,.png,.jpg,.jpeg,.webp,.gif">
+          <button id="attach-button" class="attach-button" title="Attach files or photos" aria-label="Attach files">＋</button>
+          <textarea id="chat-input" rows="1" placeholder="Message Nexora… (Enter to send, Shift+Enter for a new line)"></textarea>
+          <button id="send-button" class="send-button" aria-label="Send message">↑</button>
+        </div>
+        <div class="composer-note"><span>Files and photos supported · Up to 5 attachments</span><span id="chat-hint">Local workspace</span></div>
+      </div>
+    </section>
+
+    <section id="panel-knowledge" class="panel workspace-panel">
+      <div class="panel-card"><h2>Knowledge base</h2><p>Index documents so Nexora can retrieve relevant passages in future chats. Supported: PDF, TXT, Markdown, CSV, JSON, Python and SQL.</p>
+        <label class="upload-box" for="file-input"><span class="upload-icon">↑</span><strong>Choose a document to index</strong><small>Documents are stored in your local workspace.</small><input id="file-input" type="file" accept=".pdf,.txt,.md,.markdown,.csv,.json,.py,.sql"></label>
+        <div id="upload-status" class="feedback"></div><div class="section-heading"><h3>Indexed documents</h3><button id="refresh-docs" class="text-button">Refresh</button></div><div id="documents-list" class="item-list"></div>
+      </div>
+    </section>
+
+    <section id="panel-memory" class="panel workspace-panel">
+      <div class="panel-card"><h2>Memory</h2><p>Save notes that Nexora may retrieve when relevant. Memory is explicit and user-managed.</p>
+        <form id="memory-form"><textarea id="memory-content" placeholder="Example: I prefer Python examples with clear comments…" required></textarea><div class="form-row"><input id="memory-category" placeholder="Category (e.g. preference)" value="general"><button class="primary-button">Save memory</button></div></form>
+        <div class="section-heading"><h3>Saved memories</h3><button id="refresh-memory" class="text-button">Refresh</button></div><div id="memory-list" class="item-list"></div>
+      </div>
+    </section>
+
+    <section id="panel-agents" class="panel workspace-panel">
+      <div class="panel-card"><h2>Agent workspace</h2><p>Delegate a bounded task to a Nexora specialist. Agents do not execute arbitrary shell commands or take external actions.</p>
+        <form id="agent-form"><textarea id="agent-task" placeholder="Describe the outcome you need…" required></textarea><div class="form-row"><select id="agent-type"><option value="">Auto-select specialist</option><option value="researcher">Researcher</option><option value="writer">Writer</option><option value="coder">Coder</option><option value="analyst">Analyst</option><option value="planner">Planner</option></select><button class="primary-button">Run agent</button></div></form>
+        <div id="agent-result" class="agent-result hidden"></div>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "info": {
+    "name": "Nexora AI API",
+    "description": "Local starter API collection. Set baseUrl to http://127.0.0.1:8000. If an API key is configured, add X-Nexora-Key to the collection headers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{"key": "baseUrl", "value": "http://127.0.0.1:8000"}],
+  "item": [
+    {"name": "Health", "request": {"method": "GET", "url": "{{baseUrl}}/api/health"}},
+    {"name": "Models", "request": {"method": "GET", "url": "{{baseUrl}}/api/models"}},
+    {"name": "Chat", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\n  \"message\": \"Explain the Nexora AI architecture\",\n  \"conversation_id\": null\n}"}, "url": "{{baseUrl}}/api/chat"}},
+    {"name": "List documents", "request": {"method": "GET", "url": "{{baseUrl}}/api/documents"}},
+    {"name": "List memories", "request": {"method": "GET", "url": "{{baseUrl}}/api/memories"}},
+    {"name": "Create memory", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\n  \"content\": \"Example saved preference\",\n  \"category\": \"preference\"\n}"}, "url": "{{baseUrl}}/api/memories"}},
+    {"name": "List agents", "request": {"method": "GET", "url": "{{baseUrl}}/api/agents"}},
+    {"name": "Run planner agent", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\n  \"task\": \"Create a development roadmap for a document assistant\",\n  \"agent\": \"planner\"\n}"}, "url": "{{baseUrl}}/api/agents/run"}},
+    {"name": "Calculate", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\n  \"expression\": \"(25 + 5) * 2\"\n}"}, "url": "{{baseUrl}}/api/tools/calculate"}}
+  ]
+}

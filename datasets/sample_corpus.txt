@@ -1,0 +1,7 @@
+Nexora AI is an independent artificial intelligence project. NexoraLM is the language-model research component, while NexoraGPT is the user-facing assistant. The system is designed with modular services for conversation, document knowledge, user-controlled memory, and bounded agent workflows.
+
+A language model predicts the next token based on preceding context. A decoder-only Transformer uses causal self-attention so a position can attend only to earlier positions. Training typically minimizes next-token cross-entropy over a curated corpus. Dataset quality, provenance, deduplication, evaluation, and compute budget are essential parts of responsible model development.
+
+Retrieval augmented generation adds relevant external evidence to a language model prompt. A typical pipeline extracts text from files, splits the text into overlapping chunks, encodes or indexes those chunks, retrieves the most relevant passages for a query, and asks a language model to answer using that evidence. Retrieved content must be treated as untrusted data because documents can contain prompt-injection instructions.
+
+Long-term memory should be explicit, user-controlled, inspectable, editable, and deletable. Memory retrieval should be relevance-based and should not silently store sensitive personal data. A production application should implement authentication, tenant isolation, access controls, encryption, retention policies, and auditability.
